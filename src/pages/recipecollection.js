@@ -1,6 +1,9 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { FaSearch } from 'react-icons/fa';
 
 const RecipeCollection = () => {
+    const [searchQuery, setSearchQuery] = useState('');
   const recipes = [
     {
       id: 1,
@@ -65,100 +68,75 @@ const RecipeCollection = () => {
     // Tambahkan lebih banyak resep jika diperlukan
   ];
 
+  const filteredRecipes = recipes.filter((recipe) =>
+    recipe.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className="bg-blue-50 min-h-screen p-8">
-      {/* Navbar */}
-      <header className="flex items-center justify-between mb-8">
-        <h1 className="text-3xl font-bold text-blue-600">RecipeZ</h1>
-
-        {/* Navbar Links Wrapper */}
-        <div className="bg-white shadow-lg rounded-lg p-3 flex space-x-6 text-gray-600">
-          <a href="/" className="hover:text-blue-600">Home</a>
-          <span className="font-semibold text-blue-600">Recipe Collection</span>
-          <a href="/create" className="hover:text-blue-600">Create a Recipe</a>
-        </div>
-
-        <img src="https://d2ya09u1z2qlgr.cloudfront.net/public/storage/article/January2024/UHuCZO0kkNMCcLX1HrLu.jpg" alt="User profile" className="w-8 h-8 rounded-full" />
-      </header>
-
-      {/* Search Bar */}
-      <div className="mb-8 flex justify-start">
-        <div className="relative w-1/2">
-          <span className="absolute inset-y-0 left-3 flex items-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 text-gray-400"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M8 4a8 8 0 100 16 8 8 0 000-16z"
-              />
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M21 21l-4.35-4.35"
-              />
-            </svg>
-          </span>
+       {/* Search Bar */}
+      <div className="flex justify-start mb-6">
+        <div className="relative w-full max-w-md">
           <input
             type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Cari Koleksi Resep"
-            className="w-full pl-10 pr-4 py-3 rounded-full bg-white text-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-3 pl-10 rounded-full bg-white shadow-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
           />
+          <FaSearch className="absolute left-3 top-3 text-gray-500" />
         </div>
       </div>
-
-      {/* Recipe Cards */}
+        {/* Recipe Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-        {recipes.map((recipe) => (
-          <div
-            key={recipe.id}
-            className="bg-white rounded-lg shadow-md overflow-hidden flex items-center p-4"
-          >
-            <img
-              src={recipe.image}
-              alt={recipe.title}
-              className="w-24 h-24 object-cover rounded-lg mr-4"
-              style={{ width: '150px', height: '150px' }} // Menetapkan ukuran 150x150 pada gambar
-            />
-            <div className="flex-1">
-              <h2 className="text-xl text-left font-bold text-gray-800 mb-1">{recipe.title}</h2>
-              <p className="text-gray-600 text-left text-sm mb-2">{recipe.description}</p>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-2">
-                  <img
-                    src={recipe.authorImage}
-                    alt={recipe.author}
-                    className="w-6 h-6 rounded-full"
-                  />
-                  <span className="text-gray-600 text-sm">{recipe.author}</span>
-                </div>
-                <button className="text-gray-400 hover:text-gray-600">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    className="w-6 h-12"  // Membuat ikon bookmark lebih panjang
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M5 5v18l7-7 7 7V5H5z"  // Memperpanjang bookmark
+        {filteredRecipes.length > 0 ? (
+          filteredRecipes.map((recipe) => (
+            <Link
+              to={`/detailcollection/${recipe.id}`} // Mengarahkan ke halaman detail berdasarkan ID resep
+              key={recipe.id}
+              className="bg-white rounded-lg shadow-md overflow-hidden flex items-center p-4"
+            >
+              <img
+                src={recipe.image}
+                alt={recipe.title}
+                className="w-24 h-24 object-cover rounded-lg mr-4"
+                style={{ width: '150px', height: '150px' }}
+              />
+              <div className="flex-1">
+                <h2 className="text-xl text-left font-bold text-gray-800 mb-1">{recipe.title}</h2>
+                <p className="text-gray-600 text-left text-sm mb-2">{recipe.description}</p>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2">
+                    <img
+                      src={recipe.authorImage}
+                      alt={recipe.author}
+                      className="w-6 h-6 rounded-full"
                     />
-                  </svg>
-                </button>
+                    <span className="text-gray-600 text-sm">{recipe.author}</span>
+                  </div>
+                  <button className="text-gray-400 hover:text-gray-600">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      className="w-6 h-12"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M5 5v18l7-7 7 7V5H5z"
+                      />
+                    </svg>
+                  </button>
+                </div>
               </div>
-            </div>
-          </div>
-        ))}
+            </Link>
+          ))
+        ) : (
+          <p className="text-gray-600">Tidak ada resep yang ditemukan.</p>
+        )}
       </div>
     </div>
   );
