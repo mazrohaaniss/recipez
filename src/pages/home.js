@@ -11,13 +11,13 @@ const Dashboard = () => {
     { name: 'Rendang', src: 'https://cdn.idntimes.com/content-images/community/2022/04/resep-rendang-filosofi-rendang-makna-rendang-arti-rendang-rendang-dari-mana-makanan-indonesia-filosofi-9cde86371d7fc78c91ae80a6ffab250e-e0b9344da253b8e653bd42c7df03d6d9_600x400.jpg' },
     { name: 'Rujak', src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSH8bTsl9s5ckRJ75lPvJjZtdDJtZLP6mgoqA&s' },
     { name: 'Pempek', src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgHaqb3ipAgJqSwl3r64V2oP2KK6JWqIi6_Q&s' },
-    { name: 'Pecel', src: 'https://asset.kompas.com/crops/Bl583WdJr0__J2epTtcT-4azxOQ=/60x23:959x622/1200x800/data/photo/2020/11/05/5fa3f16d9c1cf.jpg'},
-    { name: 'Chiken Steak', src: 'https://www.astronauts.id/blog/wp-content/uploads/2023/01/Kumpulan-Resep-Chicken-Steak-Viral.jpg'},
-    { name: 'Mie Ayam', src: 'https://akcdn.detik.net.id/visual/2022/10/26/1405353819_43.jpeg?w=720&q=90'},
-    { name: 'Bakso', src: 'https://guide.horego.com/wp-content/uploads/2023/11/bakso-jakarta-utara-terenak-jpg.webp'},
-    { name: 'Pizza', src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Pizza-3007395.jpg/800px-Pizza-3007395.jpg'},
-    { name: 'Burger', src: 'https://img.kurio.network/-ltYsFALO68mNha9xrka0B9fJAs=/1200x900/filters:quality(80)/https://kurio-img.kurioapps.com/20/07/01/f3f1874f-775f-4880-9821-2ea0756aba6a.jpg'},
-    { name: 'Soto', src: 'https://asset.kompas.com/crops/Bs4oWJdV_9BRvZn1lZQBRWwX5l0=/0x0:1000x667/1200x800/data/photo/2024/01/16/65a5db1f6671b.jpg'},
+    { name: 'Pecel', src: 'https://asset.kompas.com/crops/Bl583WdJr0__J2epTtcT-4azxOQ=/60x23:959x622/1200x800/data/photo/2020/11/05/5fa3f16d9c1cf.jpg' },
+    { name: 'Chiken Steak', src: 'https://www.astronauts.id/blog/wp-content/uploads/2023/01/Kumpulan-Resep-Chicken-Steak-Viral.jpg' },
+    { name: 'Mie Ayam', src: 'https://akcdn.detik.net.id/visual/2022/10/26/1405353819_43.jpeg?w=720&q=90' },
+    { name: 'Bakso', src: 'https://guide.horego.com/wp-content/uploads/2023/11/bakso-jakarta-utara-terenak-jpg.webp' },
+    { name: 'Pizza', src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Pizza-3007395.jpg/800px-Pizza-3007395.jpg' },
+    { name: 'Burger', src: 'https://img.kurio.network/-ltYsFALO68mNha9xrka0B9fJAs=/1200x900/filters:quality(80)/https://kurio-img.kurioapps.com/20/07/01/f3f1874f-775f-4880-9821-2ea0756aba6a.jpg' },
+    { name: 'Soto', src: 'https://asset.kompas.com/crops/Bs4oWJdV_9BRvZn1lZQBRWwX5l0=/0x0:1000x667/1200x800/data/photo/2024/01/16/65a5db1f6671b.jpg' },
   ];
 
   const [searchQuery, setSearchQuery] = useState('');
@@ -80,7 +80,11 @@ const Dashboard = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredRecipes.map((recipe, index) => (
             <div key={index} className="bg-white rounded-lg shadow-md p-4">
-              <img src={recipe.src} alt={recipe.name} className="w-full h-32 object-cover rounded" />
+              <img
+                src={recipe.src}
+                alt={recipe.name}
+                className="w-full h-48 object-cover rounded" // Increased height to h-48
+              />
               <h3 className="text-xl font-semibold mt-3 text-left">{recipe.name}</h3> {/* Aligned left */}
               <p className="text-gray-500 text-sm mt-1 text-left">
                 A delicious traditional Indonesian dish with spices and savory flavors.
