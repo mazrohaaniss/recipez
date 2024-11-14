@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { TrashIcon } from '@heroicons/react/solid'; // Import the Trash Icon from Heroicons
 
 const CreateRecipe = () => {
   const [ingredients, setIngredients] = useState(['']);
@@ -13,6 +14,16 @@ const CreateRecipe = () => {
     setSteps([...steps, { step: '', image: null }]);
   };
 
+  const deleteIngredient = (index) => {
+    const newIngredients = ingredients.filter((_, i) => i !== index);
+    setIngredients(newIngredients);
+  };
+
+  const deleteStep = (index) => {
+    const newSteps = steps.filter((_, i) => i !== index);
+    setSteps(newSteps);
+  };
+
   const handleImageChange = (index, e) => {
     const file = e.target.files[0];
     if (file) {
@@ -25,7 +36,7 @@ const CreateRecipe = () => {
   return (
     <div className="bg-blue-50 min-h-screen p-8 flex flex-col items-center overflow-y-auto">
       <div className="w-full max-w-4xl bg-white p-6 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-center text-blue-600 mb-8">RecipeZ</h1>
+        <h1 className="text-3xl font-bold text-center text-blue-600 mb-8">My Recipe</h1>
         
         {/* Recipe Image */}
         <div 
@@ -99,12 +110,19 @@ const CreateRecipe = () => {
         <div className="mb-6">
           <h2 className="font-semibold mb-2">Bahan - Bahan</h2>
           {ingredients.map((ingredient, index) => (
-            <input
-              key={index}
-              type="text"
-              placeholder={`Bahan ${index + 1}`}
-              className="w-full p-3 mb-2 border border-gray-300 rounded-md"
-            />
+            <div key={index} className="flex items-center space-x-2 mb-2">
+              <input
+                type="text"
+                placeholder={`Bahan ${index + 1}`}
+                className="w-full p-3 border border-gray-300 rounded-md"
+              />
+              <button
+                onClick={() => deleteIngredient(index)}
+                className="bg-red-500 text-white rounded-md p-2 hover:bg-red-600"
+              >
+                <TrashIcon className="h-5 w-5" />
+              </button>
+            </div>
           ))}
           <button
             onClick={addIngredient}
@@ -118,7 +136,7 @@ const CreateRecipe = () => {
         <div className="mb-6">
           <h2 className="font-semibold mb-2">Langkah</h2>
           {steps.map((step, index) => (
-            <div key={index} className="flex items-center mb-2 space-x-2">
+            <div key={index} className="flex items-center space-x-2 mb-2">
               <input
                 type="text"
                 placeholder={`Langkah ${index + 1}`}
@@ -147,6 +165,12 @@ const CreateRecipe = () => {
                   <p className="text-gray-500 text-center">+ Foto</p>
                 )}
               </div>
+              <button
+                onClick={() => deleteStep(index)}
+                className="bg-red-500 text-white rounded-md p-2 hover:bg-red-600"
+              >
+                <TrashIcon className="h-5 w-5" />
+              </button>
             </div>
           ))}
           <button
