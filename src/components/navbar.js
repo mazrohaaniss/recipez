@@ -58,7 +58,7 @@ const Navbar = ({ isSignedIn }) => {
         <div className="flex items-center space-x-4">
           <Link to="/profile">
             <div className="w-10 h-10 bg-blue-600 text-white flex items-center justify-center rounded-full cursor-pointer">
-              <span className="text-sm font-semibold">P</span> {/* Placeholder for profile */}
+              <span className="text-sm font-semibold"> L</span> {/* Placeholder for profile */}
             </div>
           </Link>
         </div>

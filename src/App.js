@@ -2,7 +2,8 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/navbar';
-import Home from './pages/home';
+import Homepage from './pages/homepage'; // halaman sebelum sign in
+import Home from './pages/home'; // halaman setelah sign in
 import RecipeCollection from './pages/recipecollection';
 import DetailCollection from './pages/detailcollection';
 import SignIn from './pages/SignIn';
@@ -19,11 +20,10 @@ function App() {
   return (
     <Router>
       <div className="App bg-blue-50 min-h-screen">
-        {/* Pass isSignedIn to Navbar */}
         <Navbar isSignedIn={isSignedIn} />
 
         <Routes>
-          <Route path="/" element={<Home isSignedIn={isSignedIn} />} />
+          <Route path="/" element={isSignedIn ? <Home /> : <Homepage />} />
           <Route path="/collection" element={<RecipeCollection />} />
           <Route path="/detailcollection/:id" element={<DetailCollection />} />
           <Route path="/signin" element={<SignIn onSignIn={handleSignIn} />} />
