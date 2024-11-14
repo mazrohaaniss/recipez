@@ -19,8 +19,9 @@ function App() {
   return (
     <Router>
       <div className="App bg-blue-50 min-h-screen">
-        <Navbar />
-        
+        {/* Pass isSignedIn to Navbar */}
+        <Navbar isSignedIn={isSignedIn} />
+
         <Routes>
           <Route path="/" element={<Home isSignedIn={isSignedIn} />} />
           <Route path="/collection" element={<RecipeCollection />} />
