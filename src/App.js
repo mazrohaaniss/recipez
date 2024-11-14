@@ -7,6 +7,7 @@ import RecipeCollection from './pages/recipecollection';
 import DetailCollection from './pages/detailcollection';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
+import CreateRecipe from './pages/CreateRecipe'; 
 import './App.css';
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
           <Route path="/detailcollection/:id" element={<DetailCollection />} />
           <Route path="/signin" element={<SignIn onSignIn={handleSignIn} />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/create-recipe" element={<CreateRecipe />} /> 
         </Routes>
       </div>
     </Router>

@@ -1,3 +1,4 @@
+// src/components/Navbar.js
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -30,9 +31,9 @@ const Navbar = ({ isSignedIn }) => {
             Recipe Collection
           </Link>
           <Link
-            to="/create"
+            to="/create-recipe" // Updated to match the route in App.js
             className={`${
-              location.pathname === '/create' ? 'text-blue-600 font-semibold' : 'text-gray-600'
+              location.pathname === '/create-recipe' ? 'text-blue-600 font-semibold' : 'text-gray-600'
             } hover:text-blue-600`}
           >
             Create a Recipe
