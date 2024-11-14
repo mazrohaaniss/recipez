@@ -1,4 +1,3 @@
-// components/Navbar.js
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -9,7 +8,6 @@ const Navbar = () => {
     <header className="flex items-center justify-between p-8 bg-blue-50 shadow-md">
       <h1 className="text-3xl font-bold text-blue-600">RecipeZ</h1>
       
-      {/* Navbar Links Wrapper */}
       <nav className="bg-white shadow-lg rounded-lg p-3 flex space-x-6">
         <Link
           to="/"
@@ -38,12 +36,20 @@ const Navbar = () => {
           Create a Recipe
         </Link>
       </nav>
-      
-      <img
-        src="https://d2ya09u1z2qlgr.cloudfront.net/public/storage/article/January2024/UHuCZO0kkNMCcLX1HrLu.jpg"
-        alt="User profile"
-        className="w-8 h-8 rounded-full"
-      />
+
+      {/* Sign In and Sign Up Buttons */}
+      <div className="space-x-4">
+        <Link to="/signin">
+          <button className="px-4 py-2 bg-white text-blue-600 border border-blue-600 rounded-lg font-semibold hover:bg-blue-600 hover:text-white">
+            Sign In
+          </button>
+        </Link>
+        <Link to="/signup">
+          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700">
+            Sign Up
+          </button>
+        </Link>
+      </div>
     </header>
   );
 };
