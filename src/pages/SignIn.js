@@ -68,14 +68,15 @@ const SignInContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh; /* Memastikan background mengisi seluruh halaman */
   justify-content: center;
-  background-image: url('/path/to/your/food-grid-background.jpg'); 
+  background-image: url('https://blogger.googleusercontent.com/img/a/AVvXsEifPwccPsRNlw_BOO3PFlxpPB4dYEDz8GT_sA0Lten7zu83Il-7zNvqYF2gvk3NdQPduvXgMdkQqL7VLyDmydZJ8HfkRPtn-HN2RRnljY1Y0FbHj1o-YzX_porj3QiNpQGQam4DaiOThS2_VrjklPlS8kXPoJ37G-VFzJTZggWrIUeuPoXuWuuW8jy0n18=w625-h445'); /* Gambar dari Google Drive */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-color: rgba(0, 0, 0, 0.6); 
+  position: relative; /* Agar background tetap di bawah */
 `;
+
 
 const Header = styled.div`
   display: flex;
@@ -105,7 +106,10 @@ const SignInCard = styled.div`
   width: 300px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   text-align: center;
+  position: relative; /* Menjaga agar card berada di atas background */
+  z-index: 2; /* Menempatkan card di atas background */
 `;
+
 
 const SignInTitle = styled.h2`
   font-size: 1.5rem;
