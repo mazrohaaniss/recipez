@@ -4,7 +4,7 @@ import { TrashIcon } from '@heroicons/react/solid'; // Import the Trash Icon fro
 const CreateRecipe = () => {
   const [ingredients, setIngredients] = useState(['']);
   const [steps, setSteps] = useState([{ step: '', image: null }]);
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState(null);  // Handle the recipe image
 
   const addIngredient = () => {
     setIngredients([...ingredients, '']);
@@ -27,9 +27,13 @@ const CreateRecipe = () => {
   const handleImageChange = (index, e) => {
     const file = e.target.files[0];
     if (file) {
-      const newSteps = [...steps];
-      newSteps[index].image = URL.createObjectURL(file);
-      setSteps(newSteps);
+      if (index === 'recipe') {
+        setImage(URL.createObjectURL(file));  // Set the image for the recipe
+      } else {
+        const newSteps = [...steps];
+        newSteps[index].image = URL.createObjectURL(file);
+        setSteps(newSteps);
+      }
     }
   };
 
@@ -46,7 +50,7 @@ const CreateRecipe = () => {
           <input
             type="file"
             accept="image/*"
-            onChange={(e) => handleImageChange('recipe', e)}
+            onChange={(e) => handleImageChange('recipe', e)}  // Use 'recipe' to distinguish the image upload
             className="hidden"
             id="recipe-image"
           />

@@ -22,18 +22,22 @@ function App() {
     <Router>
       <div className="App bg-blue-50 min-h-screen">
         <Navbar isSignedIn={isSignedIn} />
-
         <Routes>
-          <Route path="/" element={isSignedIn ? <Home /> : <Homepage />} />
+          {/* Halaman Home jika sudah login, Homepage jika belum */}
+          <Route path="/homepage" element={<Homepage />} />
+          <Route path="/home" element={isSignedIn ? <Home /> : <Homepage />} />
+
+          {/* Halaman lainnya */}
           <Route path="/collection" element={<RecipeCollection />} />
           <Route path="/detailcollection/:id" element={<DetailCollection />} />
           <Route path="/signin" element={<SignIn onSignIn={handleSignIn} />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/create-recipe" element={<CreateRecipe />} /> 
+          <Route path="/create-recipe" element={<CreateRecipe />} />
         </Routes>
       </div>
     </Router>
   );
 }
+
 
 export default App;
