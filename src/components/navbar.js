@@ -14,10 +14,12 @@ const Navbar = ({ isSignedIn }) => {
   const handleLogout = () => {
     const confirmLogout = window.confirm("Apakah Anda yakin ingin logout?");
     if (confirmLogout) {
-      localStorage.removeItem('user');
-      navigate('/homepage');  // Pindahkan ke halaman homepage setelah logout
+      localStorage.removeItem("user"); // Menghapus data pengguna dari localStorage
+      navigate("/homepage"); // Pindah ke halaman homepage setelah logout
+      window.location.reload(); // Memaksa halaman untuk ter-refresh
     }
   };
+  
 
   // Hide Navbar on SignIn and SignUp pages
   if (location.pathname === '/signin' || location.pathname === '/signup') {
@@ -57,20 +59,20 @@ const Navbar = ({ isSignedIn }) => {
         </NavActions>
       )}
 
-      {isSignedIn && (
-        <ProfileContainer>
-          <ProfileIcon onClick={toggleDropdown}>
-            <span>L</span>
-          </ProfileIcon>
-          {isDropdownOpen && (
-            <Dropdown>
-              <DropdownItem to="/profile">Lihat Profil</DropdownItem>
-              <DropdownItem to="/my-recipes">My Recipe</DropdownItem>
-              <DropdownButton onClick={handleLogout}>Logout</DropdownButton>
-            </Dropdown>
-          )}
-        </ProfileContainer>
-      )}
+    {isSignedIn && (
+      <ProfileContainer>
+        <ProfileIcon onClick={toggleDropdown}>
+          <span>L</span>
+        </ProfileIcon>
+        {isDropdownOpen && (
+          <Dropdown isOpen={isDropdownOpen}>
+            <DropdownItem to="/profile">Lihat Profil</DropdownItem>
+            <DropdownItem to="/my-recipes">My Recipe</DropdownItem>
+            <DropdownButton onClick={handleLogout}>Logout</DropdownButton>
+          </Dropdown>
+        )}
+      </ProfileContainer>
+    )}
     </Header>
   );
 };

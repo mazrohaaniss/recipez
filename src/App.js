@@ -25,6 +25,7 @@ function App() {
 
         <Routes>
           <Route path="/" element={isSignedIn ? <Home /> : <Homepage />} />
+          <Route path="/homepage" element={<Homepage />} />
           <Route path="/collection" element={<RecipeCollection />} />
           <Route path="/detailcollection/:id" element={<DetailCollection />} />
           <Route path="/signin" element={<SignIn onSignIn={handleSignIn} />} />
