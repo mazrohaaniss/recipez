@@ -20,7 +20,6 @@ const Navbar = ({ isSignedIn }) => {
     }
   };
   
-
   // Hide Navbar on SignIn and SignUp pages
   if (location.pathname === '/signin' || location.pathname === '/signup') {
     return null;
@@ -37,10 +36,8 @@ const Navbar = ({ isSignedIn }) => {
           </StyledLink>
           <StyledLink
             to="/collection"
-            active={
-              location.pathname === '/collection' ||
-              location.pathname.includes('/detailcollection')
-            }
+            active={location.pathname === '/collection' ||
+                    location.pathname.includes('/detailcollection')}
           >
             Recipe Collection
           </StyledLink>
@@ -59,20 +56,20 @@ const Navbar = ({ isSignedIn }) => {
         </NavActions>
       )}
 
-    {isSignedIn && (
-      <ProfileContainer>
-        <ProfileIcon onClick={toggleDropdown}>
-          <span>L</span>
-        </ProfileIcon>
-        {isDropdownOpen && (
-          <Dropdown isOpen={isDropdownOpen}>
-            <DropdownItem to="/profile">Lihat Profil</DropdownItem>
-            <DropdownItem to="/my-recipes">My Recipe</DropdownItem>
-            <DropdownButton onClick={handleLogout}>Logout</DropdownButton>
-          </Dropdown>
-        )}
-      </ProfileContainer>
-    )}
+      {isSignedIn && (
+        <ProfileContainer>
+          <ProfileIcon onClick={toggleDropdown}>
+            <span>L</span>
+          </ProfileIcon>
+          {isDropdownOpen && (
+            <Dropdown isOpen={isDropdownOpen}>
+              <DropdownItem to="/profile">Lihat Profil</DropdownItem>
+              <DropdownItem to="/my-recipe">My Recipe</DropdownItem> {/* Added link to My Recipe */}
+              <DropdownButton onClick={handleLogout}>Logout</DropdownButton>
+            </Dropdown>
+          )}
+        </ProfileContainer>
+      )}
     </Header>
   );
 };
