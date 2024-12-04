@@ -2,6 +2,46 @@ import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
 import { FaSearch, FaBookmark } from 'react-icons/fa';
 
+// Komponen dasar (Polymorphism melalui Composition)
+const Card = ({ item, isBookmarked, onToggleBookmark }) => {
+    return (
+        <Link
+            to={`/detailcollection/${item.id}`}
+            className="bg-white rounded-lg shadow-md overflow-hidden flex items-center p-4"
+        >
+            <img
+                src={item.image}
+                alt={item.title}
+                className="w-24 h-24 object-cover rounded-lg mr-4"
+                style={{ width: '150px', height: '150px' }}
+            />
+            <div className="flex-1">
+                <h2 className="text-xl text-left font-bold text-gray-800 mb-1">{item.title}</h2>
+                <p className="text-gray-600 text-left text-sm mb-2">{item.description}</p>
+                <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                        <img
+                            src={item.authorImage}
+                            alt={item.author}
+                            className="w-6 h-6 rounded-full"
+                        />
+                        <span className="text-gray-600 text-sm">{item.author}</span>
+                    </div>
+                    <button
+                        onClick={(e) => {
+                            e.preventDefault();
+                            onToggleBookmark(item);
+                        }}
+                        className="text-gray-400 hover:text-blue-600"
+                    >
+                        <FaBookmark className={`w-6 h-6 ${isBookmarked ? 'text-blue-600' : ''}`} />
+                    </button>
+                </div>
+            </div>
+        </Link>
+    );
+};
+
 const RecipeCollection = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [bookmarkedRecipes, setBookmarkedRecipes] = useState([]);
@@ -95,41 +135,12 @@ const RecipeCollection = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                 {filteredRecipes.length > 0 ? (
                     filteredRecipes.map((recipe) => (
-                        <Link
-                            to={`/detailcollection/${recipe.id}`} // Mengarahkan ke halaman detail berdasarkan ID resep
+                        <Card
                             key={recipe.id}
-                            className="bg-white rounded-lg shadow-md overflow-hidden flex items-center p-4"
-                        >
-                            <img
-                                src={recipe.image}
-                                alt={recipe.title}
-                                className="w-24 h-24 object-cover rounded-lg mr-4"
-                                style={{ width: '150px', height: '150px' }}
-                            />
-                            <div className="flex-1">
-                                <h2 className="text-xl text-left font-bold text-gray-800 mb-1">{recipe.title}</h2>
-                                <p className="text-gray-600 text-left text-sm mb-2">{recipe.description}</p>
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center space-x-2">
-                                        <img
-                                            src={recipe.authorImage}
-                                            alt={recipe.author}
-                                            className="w-6 h-6 rounded-full"
-                                        />
-                                        <span className="text-gray-600 text-sm">{recipe.author}</span>
-                                    </div>
-                                    <button
-                                        onClick={(e) => {
-                                            e.preventDefault();
-                                            toggleBookmark(recipe);
-                                        }}
-                                        className="text-gray-400 hover:text-blue-600"
-                                    >
-                                        <FaBookmark className={`w-6 h-6 ${bookmarkedRecipes.some((item) => item.id === recipe.id) ? 'text-blue-600' : ''}`} />
-                                    </button>
-                                </div>
-                            </div>
-                        </Link>
+                            item={recipe}
+                            isBookmarked={bookmarkedRecipes.some((item) => item.id === recipe.id)}
+                            onToggleBookmark={toggleBookmark}
+                        />
                     ))
                 ) : (
                     <p className="text-gray-600">Tidak ada resep yang ditemukan.</p>
