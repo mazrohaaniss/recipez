@@ -35,7 +35,6 @@ const Dashboard = () => {
     new Recipe('Telur', 'https://cdn0-production-images-kly.akamaized.net/K3L-zc8Iem7-nIH01AAVXgVLIEg=/0x0:1920x1082/640x360/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/2559225/original/035309500_1546271126-kitchen-775746_1920.jpg'),
     new Recipe('Cheese Cake', 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Baked_cheesecake_with_raspberries_and_blueberries.jpg/250px-Baked_cheesecake_with_raspberries_and_blueberries.jpg'),
     new IndonesianRecipe('Pecel Lele', 'https://kurio-img.kurioapps.com/20/11/21/b2aecfb2-fefd-415f-9424-2485a95d41ef.png', 'Fried catfish with peanut sauce'),
-    new IndonesianRecipe('Rendang', 'https://cdn.idntimes.com/content-images/community/2022/04/resep-rendang-filosofi-rendang-makna-rendang-arti-rendang-rendang-dari-mana-makanan-indonesia-filosofi-9cde86371d7fc78c91ae80a6ffab250e-e0b9344da253b8e653bd42c7df03d6d9_600x400.jpg', 'Delicious beef stew'),
     new IndonesianRecipe('Rujak', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSH8bTsl9s5ckRJ75lPvJjZtdDJtZLP6mgoqA&s', 'Spicy fruit salad'),
     new IndonesianRecipe('Pempek', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgHaqb3ipAgJqSwl3r64V2oP2KK6JWqIi6_Q&s', 'Fish cake from Palembang'),
     new IndonesianRecipe('Tongseng', 'https://i.ytimg.com/vi/En61fH58CBM/maxresdefault.jpg', 'Spicy meat soup from Java'),
@@ -84,10 +83,10 @@ const Dashboard = () => {
       {/* Popular Recipes Section */}
       <div className="mb-8">
         <h2 className="text-2xl font-semibold text-gray-700 mb-4 text-left">Popular Recipes</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
           {filteredRecipes.slice(0, 8).map((recipe, index) => (
             <div key={index} className="relative bg-white rounded-lg shadow-md overflow-hidden">
-              <img src={recipe.src} alt={recipe.name} className="w-full h-24 object-cover" />
+              <img src={recipe.src} alt={recipe.name} className="w-full h-32 object-cover" />
               <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white text-left py-1 px-2">
                 <p className="text-sm font-semibold">{recipe.name}</p>
               </div>
@@ -103,11 +102,11 @@ const Dashboard = () => {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredRecipes.map((recipe, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-md p-4">
+            <div key={index} className="bg-white rounded-lg shadow-md p-6">
               <img
                 src={recipe.src}
                 alt={recipe.name}
-                className="w-full h-48 object-cover rounded" // Increased height to h-48
+                className="w-full h-64 object-cover rounded" // Increased height to h-48
               />
               <h3 className="text-xl font-semibold mt-3 text-left">{recipe.name}</h3> {/* Aligned left */}
               <p className="text-gray-500 text-sm mt-1 text-left">
