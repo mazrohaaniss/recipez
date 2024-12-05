@@ -41,6 +41,7 @@ const Dashboard = () => {
     new IndonesianRecipe('Piscok', 'https://radarmukomuko.bacakoran.co/upload/407fb558171c30a09ff890f30d3262ad.jpg', 'Fried banana roll'),
     new IndonesianRecipe('Lontong Balap', 'https://awsimages.detik.net.id/community/media/visual/2021/09/27/resep-lontong-balap-surabaya-1.jpeg?w=1200', 'Rice cake with soup from Surabaya'),
     new IndonesianRecipe('Garang Asem', 'https://pict.sindonews.net/dyn/850/pena/news/2020/07/13/185/98840/garang-asem-ayam-makanan-khas-jawa-tengah-yang-bisa-dibuat-di-rumah-jqq.jpg', 'Chicken in sour soup from Central Java'),
+    new Recipe('Ramen', 'https://th.bing.com/th/id/OIP.TZlai6ku8KYedtndHuuRcwHaE8?rs=1&pid=ImgDetMain'),
   ];
 
   const [searchQuery, setSearchQuery] = useState('');
@@ -84,7 +85,7 @@ const Dashboard = () => {
       <div className="mb-8">
         <h2 className="text-2xl font-semibold text-gray-700 mb-4 text-left">Popular Recipes</h2>
         <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
-          {filteredRecipes.slice(0, 8).map((recipe, index) => (
+          {filteredRecipes.slice(0, 12).map((recipe, index) => (
             <div key={index} className="relative bg-white rounded-lg shadow-md overflow-hidden">
               <img src={recipe.src} alt={recipe.name} className="w-full h-32 object-cover" />
               <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white text-left py-1 px-2">
