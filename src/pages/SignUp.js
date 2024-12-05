@@ -1,33 +1,72 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IoIosArrowBack } from 'react-icons/io';
-import { FaGoogle, FaFacebook } from 'react-icons/fa'; 
+import { FaGoogle, FaFacebook } from 'react-icons/fa';
 import { TiSocialTwitter } from 'react-icons/ti';
+
+// Base Form Class (Encapsulation)
+class FormComponent {
+  constructor() {
+    this.errors = {}; // Menyimpan error state
+  }
+
+  validate() {
+    throw new Error('validate() method must be implemented.');
+  }
+}
+
+// SignUpForm Class 
+class SignUpForm extends FormComponent {
+  validate(formData) {
+    const { username, email, password } = formData;
+    let newErrors = {};
+    if (!username.trim()) newErrors.username = 'Username is required.';
+    if (!email.trim()) newErrors.email = 'Email is required.';
+    if (!password.trim()) newErrors.password = 'Password is required.';
+    return newErrors;
+  }
+}
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const formInstance = new SignUpForm(); // Inheritance & Polymorphism
+
   const [formData, setFormData] = useState({ username: '', email: '', password: '' });
-  const [errors, setErrors] = useState({ username: '', email: '', password: '' });
+  const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-    setErrors({ ...errors, [e.target.name]: '' }); // Menghapus error saat user mengetik
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+    setErrors((prevErrors) => ({ ...prevErrors, [name]: '' })); // Clear error on change
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let newErrors = {};
-
-    if (!formData.username.trim()) newErrors.username = 'Username is required.';
-    if (!formData.email.trim()) newErrors.email = 'Email is required.';
-    if (!formData.password.trim()) newErrors.password = 'Password is required.';
-
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-    } else {
-      navigate('/signin'); // Pindah ke halaman Sign In
+    try {
+      const validationErrors = formInstance.validate(formData); // Polymorphic validate()
+      if (Object.keys(validationErrors).length > 0) {
+        setErrors(validationErrors);
+      } else {
+        navigate('/signin'); 
+      }
+    } catch (error) {
+      console.error('Error during sign-up:', error.message); // Exception Handling
     }
   };
+
+  const SocialButtons = () => (
+    <div className="social-buttons">
+      <button className="social-button">
+        <FaGoogle className="social-icon google-icon" />
+      </button>
+      <button className="social-button">
+        <TiSocialTwitter className="social-icon twitter-icon" />
+      </button>
+      <button className="social-button">
+        <FaFacebook className="social-icon facebook-icon" />
+      </button>
+    </div>
+  );
 
   return (
     <div className="sign-up-container">
@@ -41,6 +80,7 @@ const SignUp = () => {
       <div className="sign-up-card">
         <h2 className="sign-up-header">SIGN UP</h2>
         <div className="divider"></div>
+
         {/* Form */}
         <form onSubmit={handleSubmit} className="sign-up-form">
           <div className="form-group">
@@ -83,18 +123,7 @@ const SignUp = () => {
 
         {/* Social Sign Up */}
         <div className="social-sign-up-text">Or sign up with</div>
-        <div className="social-buttons">
-          <button className="social-button">
-            <FaGoogle className="social-icon google-icon" />
-          </button>
-          <button className="social-button">
-            <TiSocialTwitter className="social-icon facebook-icon" />
-          </button>
-          <button className="social-button">
-            <FaFacebook className="social-icon twitter-icon" />
-          </button>
-        </div>
-
+        <SocialButtons />
 
         {/* Footer */}
         <div className="footer-text">
@@ -108,9 +137,9 @@ const SignUp = () => {
   );
 };
 
-// CSS Styles
+// Add CSS Styles
 const styles = `
-  .sign-up-container {
+   .sign-up-container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -249,10 +278,11 @@ const styles = `
     cursor: pointer;
     font-weight: bold;
   }
+
 `;
 
-const styleSheet = document.createElement("style");
-styleSheet.type = "text/css";
+const styleSheet = document.createElement('style');
+styleSheet.type = 'text/css';
 styleSheet.innerText = styles;
 document.head.appendChild(styleSheet);
 
