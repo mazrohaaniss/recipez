@@ -1,23 +1,47 @@
 import React, { useState } from 'react';
 import { FaSearch, FaBookmark } from 'react-icons/fa';
 
+// Kelas dasar untuk resep
+class Recipe {
+  constructor(name, src) {
+    this.name = name;
+    this.src = src;
+  }
+
+  // Method yang bisa di-override oleh kelas turunan
+  getRecipeDetails() {
+    return `Recipe: ${this.name}`;
+  }
+}
+
+// Kelas turunan untuk resep Indonesia
+class IndonesianRecipe extends Recipe {
+  constructor(name, src, description) {
+    super(name, src);
+    this.description = description;
+  }
+
+  // Override method getRecipeDetails
+  getRecipeDetails() {
+    return `Indonesian Recipe: ${this.name} - ${this.description}`;
+  }
+}
+
 const Dashboard = () => {
+  // Data resep
   const allRecipes = [
-    { name: 'Omlet', src: 'https://img.harianjogja.com/posts/2024/09/03/1187015/omlet-stockcake.jpg' },
-    { name: 'Telur', src: 'https://cdn0-production-images-kly.akamaized.net/K3L-zc8Iem7-nIH01AAVXgVLIEg=/0x0:1920x1082/640x360/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/2559225/original/035309500_1546271126-kitchen-775746_1920.jpg' },
-    { name: 'Pastel', src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlr3rmDO3bNGmjm9eY65_0x1J_jikkGehrPg&s' },
-    { name: 'Cheese Cake', src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Baked_cheesecake_with_raspberries_and_blueberries.jpg/250px-Baked_cheesecake_with_raspberries_and_blueberries.jpg' },
-    { name: 'Pecel Lele', src: 'https://kurio-img.kurioapps.com/20/11/21/b2aecfb2-fefd-415f-9424-2485a95d41ef.png' },
-    { name: 'Rendang', src: 'https://cdn.idntimes.com/content-images/community/2022/04/resep-rendang-filosofi-rendang-makna-rendang-arti-rendang-rendang-dari-mana-makanan-indonesia-filosofi-9cde86371d7fc78c91ae80a6ffab250e-e0b9344da253b8e653bd42c7df03d6d9_600x400.jpg' },
-    { name: 'Rujak', src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSH8bTsl9s5ckRJ75lPvJjZtdDJtZLP6mgoqA&s' },
-    { name: 'Pempek', src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgHaqb3ipAgJqSwl3r64V2oP2KK6JWqIi6_Q&s' },
-    { name: 'Pecel', src: 'https://asset.kompas.com/crops/Bl583WdJr0__J2epTtcT-4azxOQ=/60x23:959x622/1200x800/data/photo/2020/11/05/5fa3f16d9c1cf.jpg' },
-    { name: 'Chiken Steak', src: 'https://www.astronauts.id/blog/wp-content/uploads/2023/01/Kumpulan-Resep-Chicken-Steak-Viral.jpg' },
-    { name: 'Mie Ayam', src: 'https://akcdn.detik.net.id/visual/2022/10/26/1405353819_43.jpeg?w=720&q=90' },
-    { name: 'Bakso', src: 'https://guide.horego.com/wp-content/uploads/2023/11/bakso-jakarta-utara-terenak-jpg.webp' },
-    { name: 'Pizza', src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Pizza-3007395.jpg/800px-Pizza-3007395.jpg' },
-    { name: 'Burger', src: 'https://img.kurio.network/-ltYsFALO68mNha9xrka0B9fJAs=/1200x900/filters:quality(80)/https://kurio-img.kurioapps.com/20/07/01/f3f1874f-775f-4880-9821-2ea0756aba6a.jpg' },
-    { name: 'Soto', src: 'https://asset.kompas.com/crops/Bs4oWJdV_9BRvZn1lZQBRWwX5l0=/0x0:1000x667/1200x800/data/photo/2024/01/16/65a5db1f6671b.jpg' },
+    new Recipe('Omlet', 'https://img.harianjogja.com/posts/2024/09/03/1187015/omlet-stockcake.jpg'),
+    new IndonesianRecipe('Rendang', 'https://cdn.idntimes.com/content-images/community/2022/04/resep-rendang-filosofi-rendang-makna-rendang-arti-rendang-rendang-dari-mana-makanan-indonesia-filosofi-9cde86371d7fc78c91ae80a6ffab250e-e0b9344da253b8e653bd42c7df03d6d9_600x400.jpg', 'Delicious beef stew'),
+    new Recipe('Telur', 'https://cdn0-production-images-kly.akamaized.net/K3L-zc8Iem7-nIH01AAVXgVLIEg=/0x0:1920x1082/640x360/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/2559225/original/035309500_1546271126-kitchen-775746_1920.jpg'),
+    new Recipe('Cheese Cake', 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Baked_cheesecake_with_raspberries_and_blueberries.jpg/250px-Baked_cheesecake_with_raspberries_and_blueberries.jpg'),
+    new IndonesianRecipe('Pecel Lele', 'https://kurio-img.kurioapps.com/20/11/21/b2aecfb2-fefd-415f-9424-2485a95d41ef.png', 'Fried catfish with peanut sauce'),
+    new IndonesianRecipe('Rendang', 'https://cdn.idntimes.com/content-images/community/2022/04/resep-rendang-filosofi-rendang-makna-rendang-arti-rendang-rendang-dari-mana-makanan-indonesia-filosofi-9cde86371d7fc78c91ae80a6ffab250e-e0b9344da253b8e653bd42c7df03d6d9_600x400.jpg', 'Delicious beef stew'),
+    new IndonesianRecipe('Rujak', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSH8bTsl9s5ckRJ75lPvJjZtdDJtZLP6mgoqA&s', 'Spicy fruit salad'),
+    new IndonesianRecipe('Pempek', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgHaqb3ipAgJqSwl3r64V2oP2KK6JWqIi6_Q&s', 'Fish cake from Palembang'),
+    new IndonesianRecipe('Tongseng', 'https://i.ytimg.com/vi/En61fH58CBM/maxresdefault.jpg', 'Spicy meat soup from Java'),
+    new IndonesianRecipe('Piscok', 'https://radarmukomuko.bacakoran.co/upload/407fb558171c30a09ff890f30d3262ad.jpg', 'Fried banana roll'),
+    new IndonesianRecipe('Lontong Balap', 'https://awsimages.detik.net.id/community/media/visual/2021/09/27/resep-lontong-balap-surabaya-1.jpeg?w=1200', 'Rice cake with soup from Surabaya'),
+    new IndonesianRecipe('Garang Asem', 'https://pict.sindonews.net/dyn/850/pena/news/2020/07/13/185/98840/garang-asem-ayam-makanan-khas-jawa-tengah-yang-bisa-dibuat-di-rumah-jqq.jpg', 'Chicken in sour soup from Central Java'),
   ];
 
   const [searchQuery, setSearchQuery] = useState('');
@@ -87,7 +111,7 @@ const Dashboard = () => {
               />
               <h3 className="text-xl font-semibold mt-3 text-left">{recipe.name}</h3> {/* Aligned left */}
               <p className="text-gray-500 text-sm mt-1 text-left">
-                A delicious traditional Indonesian dish with spices and savory flavors.
+                {recipe.getRecipeDetails()}
               </p>
               <div className="flex items-center mt-3">
                 <img
